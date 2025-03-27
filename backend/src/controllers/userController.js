@@ -15,7 +15,7 @@ const createUser = async (req, res) => {
 };
 
 // all users
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
