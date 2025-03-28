@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const mongoose=require('mongoose');
+const mongoose = require("mongoose");
 
 // create user
 const createUser = async (req, res) => {
@@ -15,14 +15,15 @@ const createUser = async (req, res) => {
 };
 
 // all users
-const getAllUsers = async (res) => {
+const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
-    res.status(200).json(users);
+    const users = await User.find({});
+    return res.status(200).json(users); // Ensure res is being used properly
   } catch (error) {
-    res
+    console.error("Error fetching users:", error);
+    return res
       .status(500)
-      .json({ message: "error fetching users", error: error.message });
+      .json({ message: "Error fetching users", error: error.message });
   }
 };
 
