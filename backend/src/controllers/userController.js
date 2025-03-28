@@ -18,12 +18,12 @@ const createUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({});
-    return res.status(200).json(users); // Ensure res is being used properly
+    return res.status(200).json(users);
   } catch (error) {
-    console.error("Error fetching users:", error);
+    console.error("error fetching users:", error);
     return res
       .status(500)
-      .json({ message: "Error fetching users", error: error.message });
+      .json({ message: "error fetching users", error: error.message });
   }
 };
 
