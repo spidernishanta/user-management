@@ -1,45 +1,52 @@
 "use client";
-import { useState } from 'react';
-import UserModal from '../components/UserModal';
-import UsersTable from '../components/UsersTable';
-import { User } from '../types/user';
+import { useState } from "react";
+import UserModal from "../components/UserModal";
+import UsersTable from "../components/UsersTable";
+import { User } from "../types/user";
 
 export default function HomePage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUsersList, setShowUsersList] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [hasUsers, setHasUsers] = useState(false);
 
   const handleAddUser = async (userData: Partial<User>) => {
     try {
-      const response = await fetch('/api/users/create', {
-        method: 'POST',
+      const response = await fetch("/api/users/create", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create user');
+        throw new Error(errorData.message || "Failed to create user");
       }
 
       return await response.json();
     } catch (error) {
-      console.error('Error creating user:', error);
-      setError(error instanceof Error ? error.message : 'Failed to create user');
+      console.error("Error creating user:", error);
+      setError(
+        error instanceof Error ? error.message : "Failed to create user"
+      );
       throw error;
     }
+  };
+
+  const handleUsersLoaded = (usersExist: boolean) => {
+    setHasUsers(usersExist);
   };
 
   return (
     <main className="min-h-screen p-8">
       <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-center items-center mb-8">
           <h1 className="text-3xl font-bold text-center">User Management</h1>
         </div>
-        
+
         <div className="flex justify-center gap-4 mb-8">
           <button
             onClick={() => setShowAddModal(true)}
@@ -51,7 +58,7 @@ export default function HomePage() {
             onClick={() => setShowUsersList(!showUsersList)}
             className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
           >
-            {showUsersList ? 'Hide Users' : 'All Users'}
+            {showUsersList ? "Hide Users" : "All Users"}
           </button>
         </div>
 
@@ -62,9 +69,10 @@ export default function HomePage() {
         )}
 
         {showUsersList && (
-          <UsersTable 
-            key={refreshKey} 
-            onRefresh={() => setRefreshKey(prev => prev + 1)} 
+          <UsersTable
+            key={refreshKey}
+            onRefresh={() => setRefreshKey((prev) => prev + 1)}
+            onUsersLoaded={handleUsersLoaded}
           />
         )}
 
@@ -75,7 +83,7 @@ export default function HomePage() {
               setError(null);
             }}
             onSuccess={() => {
-              setRefreshKey(prev => prev + 1);
+              setRefreshKey((prev) => prev + 1);
               setShowAddModal(false);
               setShowUsersList(true);
               setError(null);

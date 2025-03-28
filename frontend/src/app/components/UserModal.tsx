@@ -23,7 +23,7 @@ export default function UserModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Initialize form with user data
+  // initialize form with user data
   useEffect(() => {
     if (initialData) {
       setFormData({
@@ -43,10 +43,8 @@ export default function UserModal({
     setError(null);
 
     try {
-      // Convert age to number if it exists
       const submissionData = {
         ...formData,
-        age: formData.age ? Number(formData.age) : undefined,
       };
 
       await onSubmit(submissionData);
@@ -56,7 +54,7 @@ export default function UserModal({
       setError(
         err instanceof Error
           ? err.message
-          : "Failed to save user. Please try again."
+          : "failed to save user. Please try again."
       );
     } finally {
       setIsSubmitting(false);
@@ -75,14 +73,14 @@ export default function UserModal({
             className="text-gray-500 hover:text-gray-700 disabled:opacity-50"
             disabled={isSubmitting}
           >
-            ✕
+            x
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Name *
+              Name
             </label>
             <input
               type="text"
@@ -98,7 +96,7 @@ export default function UserModal({
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Email *
+              Email
             </label>
             <input
               type="email"
