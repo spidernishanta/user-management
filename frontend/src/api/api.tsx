@@ -2,7 +2,6 @@ import { User, UserCreateDTO, UserUpdateDTO } from "../app/types/user";
 
 const API_BASE_URL = "http://localhost:3001/api";
 
-// Enhanced error handler
 const handleResponse = async (response: Response) => {
   const text = await response.text();
   try {
@@ -11,17 +10,18 @@ const handleResponse = async (response: Response) => {
         ? JSON.parse(text)
         : { message: `HTTP Error ${response.status}` };
       throw new Error(
-        error.message || `Request failed with status ${response.status}`
+        error.message || `request failed with status ${response.status}`
       );
     }
     return text ? JSON.parse(text) : null;
   } catch (error) {
-    console.error("Response parsing error:", error);
-    throw new Error("Failed to process server response");
+    console.error("response parsing error:", error);
+    throw new Error("failed to process server response");
   }
 };
 
 export const userApi = {
+  //create user api
   createUser: async (userData: UserCreateDTO): Promise<User> => {
     try {
       const response = await fetch(`${API_BASE_URL}/users/create`, {
@@ -33,33 +33,34 @@ export const userApi = {
       });
       return await handleResponse(response);
     } catch (error) {
-      console.error("Create User Error:", error);
+      console.error("create user error:", error);
       throw new Error(
-        error instanceof Error ? error.message : "Failed to create user"
+        error instanceof Error ? error.message : "failed to create user"
       );
     }
   },
+
+  //get all users api
 
   getAllUsers: async (): Promise<User[]> => {
     try {
       const response = await fetch(`${API_BASE_URL}/users`);
       return await handleResponse(response);
     } catch (error) {
-      console.error("Get Users Error:", error);
+      console.error("get users error:", error);
       throw new Error(
-        error instanceof Error ? error.message : "Failed to fetch users"
+        error instanceof Error ? error.message : "failed to fetch users"
       );
     }
   },
 
-  // Fixed updateUser method
+  //update user api
   updateUser: async (
     userId: string,
     userData: UserUpdateDTO
   ): Promise<User> => {
     try {
       const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
-        // Removed colon prefix
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -68,26 +69,25 @@ export const userApi = {
       });
       return await handleResponse(response);
     } catch (error) {
-      console.error("Update User Error:", error);
+      console.error("update user error:", error);
       throw new Error(
-        error instanceof Error ? error.message : "Failed to update user"
+        error instanceof Error ? error.message : "failed to update user"
       );
     }
   },
 
-  // Fixed deleteUser method
+  // delete user api
   deleteUser: async (userId: string): Promise<boolean> => {
     try {
       const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
-        // Removed colon prefix
         method: "DELETE",
       });
       await handleResponse(response);
       return true;
     } catch (error) {
-      console.error("Delete User Error:", error);
+      console.error("delete user error:", error);
       throw new Error(
-        error instanceof Error ? error.message : "Failed to delete user"
+        error instanceof Error ? error.message : "failed to delete user"
       );
     }
   },
