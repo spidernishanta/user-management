@@ -9,7 +9,7 @@ const {
 
 const router = express.Router();
 
-router.post("/create", createUser);
+router.post("/users/create", createUser);
 router.get("/users", getAllUsers);
 router.get("/users/:id", getUser);
 router.put("/users/:id", updateUser);

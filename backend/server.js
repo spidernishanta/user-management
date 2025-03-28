@@ -17,3 +17,9 @@ app.use("/api", userRoutes);
 // Connect to DB & Start Server
 connectDB();
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.use(cors({
+  origin: 'http://localhost:3000', // Your Next.js frontend origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
