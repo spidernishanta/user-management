@@ -1,4 +1,5 @@
-#🚀 User Management API \n
+🚀 User Management API
+
 A RESTful API for managing users, built with Node.js, Express, and MongoDB.
 
 ✨ Features
