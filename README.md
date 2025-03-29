@@ -58,17 +58,13 @@ A RESTful API for managing users, built with **Node.js**, **Express**, and **Mon
 
 ## 📡 API Endpoints
 
-Method	Endpoint	Description
-
-POST	/api/users/create	(Create a new user)
-
-GET	/api/users	(Retrieve all users)
-
-GET	/api/users/:id	(Get a single user by ID)
-
-PUT	/api/users/:id	(Update a user by ID)
-
-DELETE	/api/users/:id	(Delete a user by ID)
+| Method | Endpoint | Description
+| --- | --- | --- |
+| POST | /api/users/create | Create a new user
+| GET | /api/users | Retrieve all users
+| GET | /api/users/:id | Get a single user by ID
+| PUT | /api/users/:id | Update a user by ID
+| DELETE | /api/users/:id | Delete a user by ID
 
 ## 🧪 Sample Requests
 
@@ -95,13 +91,11 @@ Error Response (400)
 }
 ```
 ## 🚨 Error Handling
-Status Code   |   Description
-
-400	          |   Bad Request (Invalid input)
-
-404	          |   Not Found (User not found)
-
-500	          |   Internal Server Error
+| Status Code | Description |
+| --- | --- |
+| 400 | Bad Request (Invalid input) |
+| 404 | Not Found (User not found) |
+| 500 | Internal Server Error |
 
 ## 🔒 Security Features
 
